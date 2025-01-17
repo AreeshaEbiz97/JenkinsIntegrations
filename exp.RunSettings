@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+
+  <!-- NUnit Adapter Configuration -->
+  <NUnit>
+    <Parallelize>
+      <Workers>1</Workers>
+      <Scope>MethodLevel</Scope>
+    </Parallelize>
+  </NUnit>
+
+  <!-- Playwright Configuration -->
+  <Playwright>
+    <BrowserName>chromium</BrowserName>
+    <ExpectTimeout>15000</ExpectTimeout>
+    <LaunchOptions>
+      <Headless>false</Headless>
+      <Channel>chrome</Channel>
+    </LaunchOptions>
+  </Playwright>
+
+</RunSettings>

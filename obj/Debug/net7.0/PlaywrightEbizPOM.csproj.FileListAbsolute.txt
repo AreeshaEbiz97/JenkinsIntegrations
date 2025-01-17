@@ -1,0 +1,5 @@
+C:\Users\Areesha.Raees\PlaywrightEbizPOM\obj\Debug\net7.0\PlaywrightEbizPOM.csproj.AssemblyReference.cache
+C:\Users\Areesha.Raees\PlaywrightEbizPOM\obj\Debug\net7.0\PlaywrightEbizPOM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Areesha.Raees\PlaywrightEbizPOM\obj\Debug\net7.0\PlaywrightEbizPOM.AssemblyInfoInputs.cache
+C:\Users\Areesha.Raees\PlaywrightEbizPOM\obj\Debug\net7.0\PlaywrightEbizPOM.AssemblyInfo.cs
+C:\Users\Areesha.Raees\PlaywrightEbizPOM\obj\Debug\net7.0\PlaywrightEbizPOM.csproj.CoreCompileInputs.cache
