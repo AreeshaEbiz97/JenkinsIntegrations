@@ -1,9 +1,11 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
 jobs:
   test:
     timeout-minutes: 60
@@ -17,6 +19,7 @@ jobs:
     - name: Build & Install
       run: dotnet build
     - name: Ensure browsers are installed
-      run: pwsh bin/Debug/net9.0/playwright install --with-deps
+      run: npx playwright install --with-deps
     - name: Run your tests
       run: dotnet test
+
