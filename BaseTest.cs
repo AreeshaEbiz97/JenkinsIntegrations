@@ -31,9 +31,9 @@ namespace PlaywrightEbizPOM
                 Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
                 Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
                 {
-                    Headless = false, // Set to true for headless mode
-                    SlowMo = 50,      // Optional: Adds a delay between actions
-                    Args = new[] { "--no-startup-window" }
+                    Headless = True, // Set to true for headless mode
+                    SlowMo = 50     // Optional: Adds a delay between actions
+                    
                 });
 
                 // Configure Browser Context with video recording and tracing
