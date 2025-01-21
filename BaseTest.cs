@@ -31,7 +31,7 @@ namespace PlaywrightEbizPOM
                 Playwright = await Microsoft.Playwright.Playwright.CreateAsync();
                 Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
                 {
-                    Headless = True, // Set to true for headless mode
+                    Headless = true, // Set to true for headless mode
                     SlowMo = 50     // Optional: Adds a delay between actions
                     
                 });
