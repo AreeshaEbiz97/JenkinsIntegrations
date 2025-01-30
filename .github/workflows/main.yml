@@ -1,25 +1,34 @@
+name: Playwright NUnit Tests
+
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main  # Trigger on push to main branch
   pull_request:
-    branches: [main, master]
+    branches:
+      - main  # Trigger on pull requests to main branch
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Use the latest version of checkout
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4  # Use the latest version of setup-dotnet
+      uses: actions/checkout@v4
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'
-    - name: Restore Dependencies
-      run: dotnet restore  # Ensure dependencies are restored
-    - name: Build Application
+        dotnet-version: '9.0.x'  # Use appropriate .NET version
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build the project
       run: dotnet build
-    - name: Ensure Browsers are Installed
-      run: npx playwright install --with-deps  # Ensures browsers are available for Playwright
-    - name: Run Your Tests
-      run: dotnet test
+
+    - name: Run NUnit tests
+      run: dotnet test --filter PlaywrightTests
