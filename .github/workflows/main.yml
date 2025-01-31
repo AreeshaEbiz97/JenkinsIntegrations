@@ -34,24 +34,12 @@ jobs:
     - name: Run NUnit tests
       run: dotnet test --filter PlaywrightTests --logger "trx;LogFileName=allure-results/test-results.trx"
 
-    # Install Allure Command Line Interface (CLI) version 3.13.3
-    - name: Install Allure Command Line Interface (CLI) version 3.13.3
+    # Install Allure Command Line Interface (CLI)
+    - name: Install Allure Command Line Interface (CLI) version 2.13.8
       run: |
-        wget https://github.com/allure-framework/allure2/releases/download/3.13.3/allure-3.13.3.zip -O allure-3.13.3.zip
-        unzip allure-3.13.3.zip
-        sudo mv allure-3.13.3 /usr/local/bin/allure
+        wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.zip -O allure-2.13.8.zip
+        unzip allure-2.13.8.zip
+        sudo mv allure-2.13.8 /usr/local/bin/allure
 
     # Generate Allure Report from the TRX results
-    - name: Generate Allure Report
-      run: allure generate allure-results --clean
-
-    # Upload Allure Results as Artifact using v4
-    - name: Upload Allure Results as Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: allure-results
-        path: allure-results
-
-    # Optionally open the Allure Report (Optional)
-    - name: Open Allure Report (Optional)
-      run: allure open allure-results
+    - name: Generate Al
