@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Run on Windows instead of Ubuntu
 
     steps:
     - name: Checkout code
@@ -35,8 +35,9 @@ jobs:
 
     - name: Install Allure Command Line Interface (CLI)
       run: |
-        wget -qO - https://dl.bintray.com/qameta/generic/allure-cli-2.13.8-linux.tar.gz | tar -xz
-        sudo mv allure-2.13.8 /usr/local/bin/allure
+        Invoke-WebRequest -Uri https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8-windows.zip -OutFile allure-2.13.8-windows.zip
+        Expand-Archive -Path allure-2.13.8-windows.zip -DestinationPath $env:USERPROFILE\allure
+        $env:PATH += ";$env:USERPROFILE\allure\allure-2.13.8\bin"  # Adding Allure CLI to the PATH
 
     - name: Generate Allure Report
       run: allure generate allure-results --clean
