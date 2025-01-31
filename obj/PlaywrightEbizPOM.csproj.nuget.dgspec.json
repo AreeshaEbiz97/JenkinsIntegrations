@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\GitHub\\PlaywrightEbizPOM.csproj": {}
+    "C:\\Users\\Areesha.Raees\\PlaywrightEbizPOM\\PlaywrightEbizPOM.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\GitHub\\PlaywrightEbizPOM.csproj": {
+    "C:\\Users\\Areesha.Raees\\PlaywrightEbizPOM\\PlaywrightEbizPOM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\GitHub\\PlaywrightEbizPOM.csproj",
+        "projectUniqueName": "C:\\Users\\Areesha.Raees\\PlaywrightEbizPOM\\PlaywrightEbizPOM.csproj",
         "projectName": "PlaywrightEbizPOM",
-        "projectPath": "C:\\Projects\\GitHub\\PlaywrightEbizPOM.csproj",
+        "projectPath": "C:\\Users\\Areesha.Raees\\PlaywrightEbizPOM\\PlaywrightEbizPOM.csproj",
         "packagesPath": "C:\\Users\\Areesha.Raees\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\GitHub\\obj\\",
+        "outputPath": "C:\\Users\\Areesha.Raees\\PlaywrightEbizPOM\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Allure.NUnit": {
+              "target": "Package",
+              "version": "[2.12.1, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.11.1, )"
@@ -64,15 +68,23 @@
             },
             "NUnit": {
               "target": "Package",
-              "version": "[3.13.2, )"
+              "version": "[3.13.3, )"
             },
             "NUnit.Analyzers": {
               "target": "Package",
               "version": "[4.3.0, )"
             },
+            "NUnit.ConsoleRunner": {
+              "target": "Package",
+              "version": "[3.19.1, )"
+            },
             "NUnit3TestAdapter": {
               "target": "Package",
               "version": "[4.6.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.1, )"
             },
             "coverlet.collector": {
               "target": "Package",

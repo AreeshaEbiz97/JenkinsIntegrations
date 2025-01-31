@@ -20,7 +20,7 @@ public class Tests : BaseClass
 
          // Navigate using menu image and Home link add test details 
         await Page.Locator("#menuimage").ClickAsync();
-        await Page.Locator("a:has-text('Home')").ClickAsync();
+        await Page.Locator("a[href='../../Home.aspx']:has-text('Home')").ClickAsync(); 
 
          var isProfileIconVisible = await Page.IsVisibleAsync("#profileIcon");
         Assert.IsTrue(isProfileIconVisible, "Login failed. Profile icon not visible.");
