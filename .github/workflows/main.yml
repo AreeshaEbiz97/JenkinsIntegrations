@@ -30,16 +30,23 @@ jobs:
     - name: Build the project
       run: dotnet build
 
-    # Run NUnit tests and use the TRX logger to generate results
     - name: Run NUnit tests
       run: dotnet test --filter PlaywrightTests --logger "trx;LogFileName=allure-results/test-results.trx"
 
-    # Install Allure Command Line Interface (CLI)
     - name: Install Allure Command Line Interface (CLI) version 2.13.8
       run: |
         wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.zip -O allure-2.13.8.zip
         unzip allure-2.13.8.zip
         sudo mv allure-2.13.8 /usr/local/bin/allure
 
-    # Generate Allure Report from the TRX results
-    - name: Generate Al
+    - name: Generate Allure Report
+      run: allure generate allure-results --clean
+
+    - name: Upload Allure Results as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-results
+        path: allure-results
+
+    - name: Open Allure Report (Optional)
+      run: allure open allure-results
