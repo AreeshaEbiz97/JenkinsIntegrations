@@ -28,29 +28,29 @@ jobs:
       run: dotnet restore
 
     - name: Build the project
-      run: dotnet build
+      run: dotnet build --configuration Release
 
     - name: Run NUnit tests
       run: dotnet test --filter PlaywrightTests --logger "trx;LogFileName=allure-results/test-results.trx"
 
-    - name: Install Allure Command Line Interface (CLI) version 3.13.3
+    # ✅ Install Allure CLI properly
+    - name: Install Allure CLI
       run: |
-        wget https://github.com/allure-framework/allure2/releases/download/3.13.3/allure-3.13.3.zip -O allure-3.13.3.zip
-        unzip allure-3.13.3.zip
-        sudo mv allure-3.13.3 /usr/local/allure  # Move Allure to a directory like /usr/local/allure
+        sudo apt update
+        sudo apt install -y allure
+        allure --version  # Check if Allure is installed
 
-    - name: Add Allure to PATH
-      run: |
-        echo "export PATH=$PATH:/usr/local/allure/bin" >> $GITHUB_ENV  # Add Allure's bin folder to PATH
-
+    # ✅ Generate Allure Report
     - name: Generate Allure Report
-      run: allure generate allure-results --clean
+      run: allure generate allure-results --clean -o allure-report
 
-    - name: Upload Allure Results as Artifact
+    # ✅ Upload Allure Results as Artifact
+    - name: Upload Allure Report
       uses: actions/upload-artifact@v4
       with:
-        name: allure-results
-        path: allure-results
+        name: allure-report
+        path: allure-report
 
+    # ✅ Open Allure Report (Optional)
     - name: Open Allure Report (Optional)
-      run: allure open allure-results
+      run: allure open allure-report
