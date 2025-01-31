@@ -10,7 +10,7 @@ on:
 
 jobs:
   test:
-    runs-on: windows-latest  # Run on Windows instead of Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -31,22 +31,26 @@ jobs:
       run: dotnet build
 
     - name: Run NUnit tests
-      run: dotnet test --filter PlaywrightTests
+      run: dotnet test --filter PlaywrightTests --logger:"nunit;LogFilePath=allure-results/test-results.xml"
 
+    # Install Allure CLI
     - name: Install Allure Command Line Interface (CLI)
       run: |
-        Invoke-WebRequest -Uri https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8-windows.zip -OutFile allure-2.13.8-windows.zip
-        Expand-Archive -Path allure-2.13.8-windows.zip -DestinationPath $env:USERPROFILE\allure
-        $env:PATH += ";$env:USERPROFILE\allure\allure-2.13.8\bin"  # Adding Allure CLI to the PATH
+        wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8-linux.tar.gz -O allure.tar.gz
+        tar -xvzf allure.tar.gz
+        sudo mv allure-2.13.8 /usr/local/bin/allure
 
+    # Generate Allure Report
     - name: Generate Allure Report
       run: allure generate allure-results --clean
 
+    # Upload Allure Results as Artifact
     - name: Upload Allure Results as Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v2
       with:
         name: allure-results
         path: allure-results
 
+    # Optionally open the Allure Report (can be skipped in CI/CD)
     - name: Open Allure Report (Optional)
       run: allure open allure-results
