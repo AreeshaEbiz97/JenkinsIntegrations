@@ -33,11 +33,15 @@ jobs:
     - name: Run NUnit tests
       run: dotnet test --filter PlaywrightTests --logger "trx;LogFileName=allure-results/test-results.trx"
 
-    - name: Install Allure Command Line Interface (CLI) version 2.13.8
+    - name: Install Allure Command Line Interface (CLI) version 3.13.3
       run: |
-        wget https://github.com/allure-framework/allure2/releases/download/2.13.8/allure-2.13.8.zip -O allure-2.13.8.zip
-        unzip allure-2.13.8.zip
-        sudo mv allure-2.13.8 /usr/local/bin/allure
+        wget https://github.com/allure-framework/allure2/releases/download/3.13.3/allure-3.13.3.zip -O allure-3.13.3.zip
+        unzip allure-3.13.3.zip
+        sudo mv allure-3.13.3 /usr/local/allure  # Move Allure to a directory like /usr/local/allure
+
+    - name: Add Allure to PATH
+      run: |
+        echo "export PATH=$PATH:/usr/local/allure/bin" >> $GITHUB_ENV  # Add Allure's bin folder to PATH
 
     - name: Generate Allure Report
       run: allure generate allure-results --clean
