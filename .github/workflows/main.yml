@@ -3,10 +3,10 @@ name: Playwright NUnit Tests
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main  # Trigger on push to the main branch
   pull_request:
     branches:
-      - main  # Trigger on pull requests to main branch
+      - main  # Trigger on pull requests to the main branch
 
 jobs:
   test:
@@ -32,3 +32,20 @@ jobs:
 
     - name: Run NUnit tests
       run: dotnet test --filter PlaywrightTests
+
+    - name: Install Allure Command Line Interface (CLI)
+      run: |
+        wget -qO - https://dl.bintray.com/qameta/generic/allure-cli-2.13.8-linux.tar.gz | tar -xz
+        sudo mv allure-2.13.8 /usr/local/bin/allure
+
+    - name: Generate Allure Report
+      run: allure generate allure-results --clean
+
+    - name: Upload Allure Results as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-results
+        path: allure-results
+
+    - name: Open Allure Report (Optional)
+      run: allure open allure-results
