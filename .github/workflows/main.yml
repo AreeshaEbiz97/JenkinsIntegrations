@@ -25,8 +25,11 @@ jobs:
     - name: Build the project
       run: dotnet build --configuration Release
 
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+    # ✅ Install Playwright and Browsers
+    - name: Install Playwright and Browsers
+      run: |
+        dotnet tool install --global Microsoft.Playwright.CLI
+        playwright install --with-deps
 
     - name: Run Tests with Allure Reporting
       run: dotnet test --logger "trx;LogFileName=allure-results/test-results.trx"
@@ -69,6 +72,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
         publish_dir: allure-report
-
-
-
