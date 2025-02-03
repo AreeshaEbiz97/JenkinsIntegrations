@@ -2,27 +2,22 @@ name: Playwright NUnit Tests
 
 on:
   push:
-    branches:
-      - main  # Trigger on push to the main branch
+    branches: [ main ]
   pull_request:
-    branches:
-      - main  # Trigger on pull requests to the main branch
+    branches: [ main ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v4
 
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '9.0.x'  # Use appropriate .NET version
-
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+        dotnet-version: '9.0.x'
 
     - name: Restore dependencies
       run: dotnet restore
@@ -30,10 +25,21 @@ jobs:
     - name: Build the project
       run: dotnet build --configuration Release
 
-    - name: Run NUnit tests
-      run: dotnet test --filter PlaywrightTests --logger "trx;LogFileName=allure-results/test-results.trx"
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
 
-    # ✅ Install Allure CLI (Latest stable version)
+    - name: Run Tests with Allure Reporting
+      run: dotnet test --logger "trx;LogFileName=allure-results/test-results.trx"
+
+    # ✅ Upload Allure Results as Artifact
+    - name: Upload Allure Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-results
+        path: allure-results
+        retention-days: 20
+
+    # ✅ Install Allure CLI
     - name: Install Allure CLI
       run: |
         wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.23.0.tgz -O allure.tgz
@@ -42,18 +48,27 @@ jobs:
         echo "export PATH=/usr/local/allure/bin:$PATH" >> $GITHUB_ENV
         allure --version  # Verify installation
 
+    # ✅ Get Allure history from gh-pages branch
+    - name: Get Allure history
+      uses: actions/checkout@v4
+      if: always()
+      continue-on-error: true
+      with:
+        ref: gh-pages
+        path: gh-pages
+
     # ✅ Generate Allure Report
     - name: Generate Allure Report
       run: allure generate allure-results --clean -o allure-report
 
-    # ✅ Upload Allure Results as Artifact
-    - name: Upload Allure Report
-      uses: actions/upload-artifact@v4
+    # ✅ Publish Allure Report to GitHub Pages
+    - name: Deploy Allure Report to GitHub Pages
+      if: always()
+      uses: peaceiris/actions-gh-pages@v4
       with:
-        name: allure-report
-        path: allure-report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: allure-report
 
-    # ✅ Open Allure Report (Optional)
-    - name: Open Allure Report (Optional)
-      run: allure open allure-report
+
 
