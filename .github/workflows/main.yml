@@ -69,6 +69,6 @@ jobs:
       if: always()
       uses: peaceiris/actions-gh-pages@v4
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GH_TOKEN }}  # Use your stored secret token
         publish_branch: gh-pages
         publish_dir: allure-report
