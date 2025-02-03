@@ -33,12 +33,12 @@ jobs:
     - name: Run NUnit tests
       run: dotnet test --filter PlaywrightTests --logger "trx;LogFileName=allure-results/test-results.trx"
 
-    # ✅ Install Allure CLI version 3.13.3
-    - name: Install Allure CLI version 3.13.3
+    # ✅ Install Allure CLI (Latest stable version)
+    - name: Install Allure CLI
       run: |
-        wget https://github.com/allure-framework/allure2/releases/download/3.13.3/allure-3.13.3.tgz -O allure.tgz
+        wget https://github.com/allure-framework/allure2/releases/download/2.23.0/allure-2.23.0.tgz -O allure.tgz
         tar -zxvf allure.tgz
-        sudo mv allure-3.13.3 /usr/local/allure
+        sudo mv allure-2.23.0 /usr/local/allure
         echo "export PATH=$PATH:/usr/local/allure/bin" >> $GITHUB_ENV
         source $GITHUB_ENV
         allure --version  # Verify installation
@@ -57,3 +57,4 @@ jobs:
     # ✅ Open Allure Report (Optional)
     - name: Open Allure Report (Optional)
       run: allure open allure-report
+
